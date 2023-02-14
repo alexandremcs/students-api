@@ -34,23 +34,29 @@ export async function save(request, response) {
 export async function update(request, response) {
    let newStudent = request.body
 
-   for (let i = 0; i < students.length; i++) {
-      if (students[i].id == newStudent.id) {
-         students[i] = newStudent
-      }
-   }
+   let result = await studentRepository.update(newStudent)
 
-   response.send(newStudent)
+   if (result) {
+      response.status(201).send(newStudent)
+   } else {
+      response.status(400).send({
+         msg: "O aluno não pode ser alterado!"
+      })
+   }
 }
 
 export async function remove(request, response) {
-   let id = request.body.id
+   let student = request.body
 
-   for (let i = 0; i < students.length; i++) {
-      if (students[i].id == id) {
-         students.splice(i, 1)
-      }
+   let id = student.id
+
+   let result = await studentRepository.remove(id)
+
+   if (result) {
+      response.status(201).send(student)
+   } else {
+      response.status(400).send({
+         msg: "O aluno não pode ser removido!"
+      })
    }
-
-   response.send(id)
 }
