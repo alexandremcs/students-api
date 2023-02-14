@@ -12,5 +12,4 @@ coverage
 *.local
 
 package-lock.json
-
 data.db
