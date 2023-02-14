@@ -1,18 +1,34 @@
 import { Student } from "../models/Student.js"
 import { v4 as uuid } from "uuid"
+import { studentRepository } from "../repository/studentRepository.js"
 
 let students = []
 
 export async function getAll(request, response) {
-   response.send(students)
+   let students = await studentRepository.findAll()
+
+   if (students) {
+      response.send(students)
+   } else {
+      response.status(400).send({
+         msg: "Problema com a consulta ao banco de dados."
+      })
+   }
 }
 
 export async function save(request, response) {
    let student = request.body
    student.id = uuid()
-   students.push(student)
+   
+   let result = await studentRepository.save(student)
 
-   response.send(student)
+   if (result) {
+      response.status(201).send(student)
+   } else {
+      response.status(400).send({
+         msg: "O aluno não pode ser salvo!"
+      })
+   }
 }
 
 export async function update(request, response) {

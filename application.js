@@ -1,7 +1,8 @@
 import express from "express"
-import { getAll, save, update, remove } from "./controllers/studentController.js"
+import studentRouter from "./routes/studentRoutes.js"
 
 const app = express()
+
 app.use(express.json())
 
 // GET
@@ -10,20 +11,12 @@ app.get("/", (request, response) => {
 
    response.send({
       status: 200,
-      message: "REST API"
+      message: "Test API"
    })
 })
 
-// Obter a lista de estudantes.
-app.get("/student", getAll)
+app.use(studentRouter)
 
-// Salvar um novo estudante.
-app.post("/student", save)
-
-// Atualizar um estudante.
-app.put("/student", update)
-
-// Deletar um estudante.
-app.delete("/student", remove)
-
-app.listen(3000)
+app.listen(3000, () => {
+   console.log("Servidor iniciado...")
+})
