@@ -1,5 +1,8 @@
 import sqlite3 from "sqlite3"
 import { open } from "sqlite"
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 // DB Connection
 async function opendb() {
@@ -24,9 +27,17 @@ async function createTable() {
 }
 
 // Return all table registers
-async function findAll() {
+async function findAll(index = 0, size = process.env.PAGE_SIZE) {
+    if (index < 0) {
+        index = 0
+    }
+
+    if (size < 0 || size > process.env.PAGE_SIZE) {
+        size = process.env.PAGE_SIZE
+    }
+
     return database.then(db => {
-        return db.all("SELECT * FROM Student").then(result => result).catch(error => undefined)
+        return db.all("SELECT * FROM Student LIMIT ? OFFSET ?", [size, index * size]).then(result => result).catch(error => undefined)
     })
 }
 
@@ -54,7 +65,6 @@ async function save(student) {
 
 // Update a table register
 async function update(student) {
-
     return database.then(db => {
         return db.run("UPDATE Student SET name = ?, age = ?, course = ?, registration = ? WHERE id= ?",
             [
@@ -70,16 +80,18 @@ async function update(student) {
 
 // Remove a table register
 async function remove(id) {
-
     return database.then(db => {
-        return db.run("DELETE FROM Student WHERE id= ?",
-            [
-                id
-            ]
+        return db.run("DELETE FROM Student WHERE id= ?", [id]
         ).then(result => true).catch(error => false)
+    })
+}
+
+async function total() {
+    return database.then(db => {
+        return db.get("SELECT COUNT(1) FROM Student").then(result => Object.values(result)[0]).catch(error => undefined)
     })
 }
 
 createTable()
 
-export const studentRepository = {findAll, find, save, update, remove}
+export const studentRepository = {findAll, find, save, update, remove, total}

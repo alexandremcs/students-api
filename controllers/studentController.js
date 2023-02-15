@@ -1,17 +1,33 @@
 import { Student } from "../models/Student.js"
 import { v4 as uuid } from "uuid"
 import { studentRepository } from "../repository/studentRepository.js"
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 let students = []
 
 export async function getAll(request, response) {
-   let students = await studentRepository.findAll()
+   let {pageIndex, pageSize} = request.query
+
+   let students = await studentRepository.findAll(pageIndex, pageSize)
+   let total = await studentRepository.total()
 
    if (students) {
-      response.send(students)
-   } else {
-      response.status(400).send({
-         msg: "Problema com a consulta ao banco de dados."
+
+      pageIndex = Number(pageIndex || 0)
+      pageSize = Number(pageSize || process.env.PAGE_SIZE)
+   
+      response.send({
+         data: students,
+         pageIndex,
+         pageSize,
+         total
+      })
+   }
+   else {
+      response.status(500).send({
+         msg: "Falha interna do banco de dados."
       })
    }
 }
@@ -37,22 +53,31 @@ export async function save(request, response) {
    if (result) {
       response.status(201).send(student)
    } else {
-      response.status(400).send({
-         msg: "O aluno não pode ser salvo!"
+      response.status(500).send({
+         msg: "Falha interna do banco de dados."
       })
    }
 }
 
 export async function update(request, response) {
-   let newStudent = request.body
 
-   let result = await studentRepository.update(newStudent)
+   let student = await studentRepository.find(request.body.id)
 
-   if (result) {
-      response.status(201).send(newStudent)
-   } else {
+   if (student) {
+      let result = await studentRepository.update(request.body)
+
+      if (result) {
+         response.send(request.body)
+      }
+      else {
+         response.status(500).send({
+            msg: "Falha interna do banco de dados."
+         })
+      }
+   }
+   else {
       response.status(400).send({
-         msg: "O aluno não pode ser alterado!"
+         msg: "Estudante não encontrado na base."
       })
    }
 }
