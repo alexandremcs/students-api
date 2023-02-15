@@ -23,14 +23,21 @@ async function createTable() {
     })
 }
 
-// Return all table lines
+// Return all table registers
 async function findAll() {
     return database.then(db => {
         return db.all("SELECT * FROM Student").then(result => result).catch(error => undefined)
     })
 }
 
-// Insert a new table line
+// Return one register
+async function find(id) {
+    return database.then(db => {
+        return db.get("SELECT * FROM Student WHERE id = ?", [id]).then(result => result).catch(error => undefined)
+    })
+}
+
+// Insert a new table register
 async function save(student) {
     return database.then(db => {
         return db.run("INSERT INTO Student (id, name, age, course, registration) VALUES (?, ?, ?, ?, ?)",
@@ -45,7 +52,7 @@ async function save(student) {
     })
 }
 
-// Update a table line
+// Update a table register
 async function update(student) {
 
     return database.then(db => {
@@ -61,7 +68,7 @@ async function update(student) {
     })
 }
 
-// Delete a table line
+// Remove a table register
 async function remove(id) {
 
     return database.then(db => {
@@ -75,4 +82,4 @@ async function remove(id) {
 
 createTable()
 
-export const studentRepository = {save, findAll, update, remove}
+export const studentRepository = {findAll, find, save, update, remove}

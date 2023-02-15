@@ -1,10 +1,13 @@
 import { Router } from "express"
-import { getAll, save, update, remove } from "../controllers/studentController.js"
+import { getAll, get, save, update, remove } from "../controllers/studentController.js"
 
 const router = Router()
 
 // GET (READ)
 router.get("/student", getAll)
+
+// GET (READ)
+router.get("/student/:id", get)
 
 // POST (CREATE)
 router.post("/student", save)

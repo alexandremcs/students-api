@@ -16,6 +16,18 @@ export async function getAll(request, response) {
    }
 }
 
+export async function get(request, response) {
+   let student = await studentRepository.find(request.params.id)
+
+   if (student) {
+      response.send(student)
+   } else {
+      response.status(400).send({
+         msg: "Estudante não encontrado na base."
+      })
+   }
+}
+
 export async function save(request, response) {
    let student = request.body
    student.id = uuid()
@@ -48,9 +60,7 @@ export async function update(request, response) {
 export async function remove(request, response) {
    let student = request.body
 
-   let id = student.id
-
-   let result = await studentRepository.remove(id)
+   let result = await studentRepository.remove(student.id)
 
    if (result) {
       response.status(201).send(student)
