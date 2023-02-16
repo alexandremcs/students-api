@@ -1,8 +1,8 @@
 import express from "express"
-import studentRouter from "./routes/studentRoutes.js"
+import studentRouter from "./routes/studentRouter.js"
+import userRouter from "./routes/userRouter.js"
 
 const app = express()
-
 app.use(express.json())
 
 // GET
@@ -16,6 +16,7 @@ app.get("/", (request, response) => {
 })
 
 app.use(studentRouter)
+app.use(userRouter)
 
 app.listen(3000, () => {
    console.log("Servidor iniciado...")

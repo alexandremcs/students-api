@@ -5,10 +5,19 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-let students = []
+/*
+{
+   data: [],
+   pageIndex: 0,
+   pageSize: 20,
+   total: 63
+}
+
+exemplo de requisição: http://localhost:3000/student/?pageIndex=3&pageSize=5
+*/
 
 export async function getAll(request, response) {
-   let {pageIndex, pageSize} = request.query
+   let { pageIndex, pageSize } = request.query
 
    let students = await studentRepository.findAll(pageIndex, pageSize)
    let total = await studentRepository.total()
@@ -16,8 +25,8 @@ export async function getAll(request, response) {
    if (students) {
 
       pageIndex = Number(pageIndex || 0)
-      pageSize = Number(pageSize || process.env.PAGE_SIZE)
-   
+      pageSize = Number(pageSize || process.env.STUDENT_PAGE_SIZE)
+
       response.send({
          data: students,
          pageIndex,
@@ -45,9 +54,15 @@ export async function get(request, response) {
 }
 
 export async function save(request, response) {
-   let student = request.body
+   let student = Student.from(request.body)
    student.id = uuid()
-   
+
+   if (typeof student.name != "string" || student.name.trim() == "") {
+      return response.status(400).send({
+         msg: "Bad Request"
+      })
+   }
+
    let result = await studentRepository.save(student)
 
    if (result) {
@@ -83,15 +98,21 @@ export async function update(request, response) {
 }
 
 export async function remove(request, response) {
-   let student = request.body
+   let student = await studentRepository.find(request.body.id)
 
-   let result = await studentRepository.remove(student.id)
+   if (student) {
+      let result = await studentRepository.remove(student.id)
 
-   if (result) {
-      response.status(201).send(student)
+      if (result) {
+         response.status(201).send(student.id)
+      } else {
+         response.status(500).send({
+            msg: "O aluno não pode ser removido!"
+         })
+      }
    } else {
       response.status(400).send({
-         msg: "O aluno não pode ser removido!"
+         msg: "Estudante não encontrado na base."
       })
    }
 }

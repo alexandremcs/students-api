@@ -6,4 +6,14 @@ export class Student {
       this.course = course || ""
       this.registration = registration || ""
    }
+
+   static from(student) {
+      return new Student(
+         student.id,
+         student.name,
+         student.age,
+         student.course,
+         student.registration
+      )
+   }
 }

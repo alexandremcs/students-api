@@ -27,13 +27,13 @@ async function createTable() {
 }
 
 // Return all table registers
-async function findAll(index = 0, size = process.env.PAGE_SIZE) {
+async function findAll(index = 0, size = process.env.STUDENT_PAGE_SIZE) {
     if (index < 0) {
         index = 0
     }
 
-    if (size < 0 || size > process.env.PAGE_SIZE) {
-        size = process.env.PAGE_SIZE
+    if (size < 0 || size > process.env.STUDENT_PAGE_SIZE) {
+        size = process.env.STUDENT_PAGE_SIZE
     }
 
     return database.then(db => {
