@@ -18,7 +18,7 @@ let database = opendb()
 // Create table Student if not exists
 async function createTable() {
     return database.then(db => {
-        return db.exec("CREATE TABLE IF NOT EXISTS User (id TEXT, username TEXT, password TEXT").then (result => {
+        return db.exec("CREATE TABLE IF NOT EXISTS User (id TEXT, username TEXT, password TEXT)").then (result => {
             return true
         }).catch(error => {
             return false
@@ -97,4 +97,4 @@ async function total() {
 
 createTable()
 
-export const studentRepository = {findAll, find, findUsername, save, update, remove, total}
+export const userRepository = {findAll, find, findUsername, save, update, remove, total}
