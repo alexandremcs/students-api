@@ -13,7 +13,7 @@ export function authenticate(request, response, next) {
             if (error) {
                 // 403 Forbidden
                 return response.status(403).send({
-                    stauts: 403,
+                    status: 403,
                     msg: "Acesso Proibido!"
                 })
             }
@@ -25,8 +25,8 @@ export function authenticate(request, response, next) {
     else {
         // 401 Unauthorized
         return response.status(401).send({
-            stauts: 401,
-            msg: "Não authorizado!"
+            status: 401,
+            msg: "Não autorizado!"
         })
     }
 }
