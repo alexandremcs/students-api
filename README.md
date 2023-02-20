@@ -21,6 +21,8 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete*, com integra
 - Update
 - Delete
 - Integração com o SQLite
+- Criptografia de senhas com o Bcrypt
+- Autenticação com JWT
 
 ##  🚀 Como executar o projeto
 
