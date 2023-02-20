@@ -2,6 +2,7 @@ import { User } from "../models/User.js"
 import { v4 as uuid } from "uuid"
 import bcrypt from "bcryptjs"
 import { userRepository } from "../repository/userRepository.js"
+import jwt from "jsonwebtoken"
 
 let refreshTokens = []
 
@@ -12,7 +13,7 @@ export async function signup(request, response) {
    if (_user) {
       // 400 Bad Request
       return response.status(400).send({
-         stauts: 400,
+         status: 400,
          msg: "Username já cadastrado!"
       })
    }
