@@ -1,6 +1,7 @@
 import { Student } from "../models/Student.js"
 import { v4 as uuid } from "uuid"
 import { studentRepository } from "../repository/studentRepository.js"
+import { logger } from "../services/logger.js"
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -17,6 +18,7 @@ exemplo de requisição: http://localhost:3000/student/?pageIndex=3&pageSize=5
 */
 
 export async function getAll(request, response) {
+   logger.info(request)
    let { pageIndex, pageSize } = request.query
 
    let students = await studentRepository.findAll(pageIndex, pageSize)
@@ -42,6 +44,7 @@ export async function getAll(request, response) {
 }
 
 export async function get(request, response) {
+   logger.info(request)
    let student = await studentRepository.find(request.params.id)
 
    if (student) {
@@ -54,6 +57,7 @@ export async function get(request, response) {
 }
 
 export async function save(request, response) {
+   logger.info(request)
    let student = Student.from(request.body)
    student.id = uuid()
 
@@ -75,6 +79,7 @@ export async function save(request, response) {
 }
 
 export async function update(request, response) {
+   logger.info(request)
 
    let student = await studentRepository.find(request.body.id)
 
@@ -98,6 +103,8 @@ export async function update(request, response) {
 }
 
 export async function remove(request, response) {
+   logger.info(request)
+   
    let student = await studentRepository.find(request.body.id)
 
    if (student) {

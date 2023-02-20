@@ -9,7 +9,7 @@
 
 ##  Descrição do Projeto
 
-Aplicação back-end com os métodos HTTP *get, post, put e delete*, com integração com o banco de dados SQLite. Utilizando o Node.js com Express e o SQLite, o projeto consiste em uma **API RESTful** com as funções de CRUD em um cadastro de alunos.
+Aplicação back-end com os métodos HTTP *get, post, put e delete* e integração com o banco de dados SQLite. Utilizando o Node.js com Express e o SQLite, o projeto consiste em uma **API RESTful** com as funções de CRUD em um cadastro de alunos além de autenticação com JWT, criptografia de senhas com Bcrypt e geração de logs de acesso com Winston.
 
 ##  Status do Projeto
 
@@ -23,6 +23,7 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete*, com integra
 - Integração com o SQLite
 - Criptografia de senhas com o Bcrypt
 - Autenticação com JWT
+- Geração de logs de acesso com Winston
 
 ##  🚀 Como executar o projeto
 
