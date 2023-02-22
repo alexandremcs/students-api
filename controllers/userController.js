@@ -3,6 +3,9 @@ import { v4 as uuid } from "uuid"
 import bcrypt from "bcryptjs"
 import { userRepository } from "../repository/userRepository.js"
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 let refreshTokens = []
 
@@ -67,8 +70,9 @@ export async function signin(request, response) {
 
       if (checked) {
          //Gerando token de acesso.
-         const accessToken = jwt.sign({username: user.username, sub: user.id}, process.env.SECRET_KEY, {expiresIn: process.env.EXPIRES_IN})
+         const accessToken = jwt.sign({username: user.username, sub: user.id}, process.env.SECRET_KEY, {expiresIn: +process.env.EXPIRES_IN})
          const refreshToken = jwt.sign({username: user.username, sub: user.id}, process.env.REFRESH_SECRET_KEY)
+         refreshTokens.push(refreshToken)
 
          response.send({accessToken, refreshToken})
       } else {
@@ -116,6 +120,7 @@ export async function token(request, response) {
    }
 
    if (!refreshTokens.includes(token)) {
+      console.log(refreshTokens)
       return response.status(401).send({
          status: 403,
          msg: "Acesso Proibido!"
@@ -131,7 +136,7 @@ export async function token(request, response) {
          })
       }
 
-      const accessToken = jwt.sign({username: user.username, sub: user.id}, process.env.SECRET_KEY, {expiresIn: process.env.EXPIRES_IN})
+      const accessToken = jwt.sign({username: user.username, sub: user.id}, process.env.SECRET_KEY, {expiresIn: +process.env.EXPIRES_IN})
       response.send({accessToken})
    })
 }
