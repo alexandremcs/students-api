@@ -24,6 +24,7 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete* e integraç�
 - Criptografia de senhas com o Bcrypt
 - Autenticação com JWT
 - Geração de logs de acesso com Winston
+- Paginação do lado do servidor
 
 ##  🚀 Como executar o projeto
 
