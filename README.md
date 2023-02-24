@@ -28,8 +28,13 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete* e integraç�
 - Paginação do lado do servidor
 
 ## Aplicação rodando no Postman
+- Cadastro de usuários (Método POST)
 ![Print1](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print1.png)
+
+- Login de usuário (Método POST)
 ![Print2](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print2.png)
+
+- Listagem de alunos (Método GET - Autenticado)
 ![Print3](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print3.png)
 
 ##  🚀 Como executar o projeto
