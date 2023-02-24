@@ -27,6 +27,11 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete* e integraç�
 - Variáveis de ambiente com Dotenv;
 - Paginação do lado do servidor
 
+## Aplicação rodando no Postman
+![Print1](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print1.png)
+![Print2](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print2.png)
+![Print3](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print3.png)
+
 ##  🚀 Como executar o projeto
 
 ```bash
