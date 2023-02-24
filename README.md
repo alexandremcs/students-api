@@ -43,6 +43,14 @@ $ cd students-api
 
 $ npm install
 
+# Criar um arquivo .env na raiz do projeto com as seguintes variáveis:
+
+STUDENT_PAGE_SIZE = X (Tamanho máximo de estudantes por página)
+USER_PAGE_SIZE = X (Tamanho máximo de usuários por página)
+SECRET_KEY = X (Chave secreta para criptografar e descriptografar senhas)
+REFRESH_SECRET_KEY = X (Chave secreta utilizada na revalidação de tokens)
+EXPIRES_IN = X (Tempo, em segundos, do tempo de expiração dos tokens de acesso)
+
 # Execute a aplicação em modo de desenvolvimento
 
 $ npm run dev
