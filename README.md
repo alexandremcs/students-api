@@ -24,6 +24,8 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete* e integraç�
 - Criptografia de senhas com o Bcrypt
 - Autenticação com JWT
 - Geração de logs de acesso com Winston
+- Variáveis de ambiente com Dotenv;
+- Paginação do lado do servidor
 
 ##  🚀 Como executar o projeto
 
@@ -40,6 +42,14 @@ $ cd students-api
 # Instale as dependências
 
 $ npm install
+
+# Criar um arquivo .env na raiz do projeto com as seguintes variáveis:
+
+STUDENT_PAGE_SIZE = X (Tamanho máximo de estudantes por página)
+USER_PAGE_SIZE = X (Tamanho máximo de usuários por página)
+SECRET_KEY = X (Chave secreta para criptografar e descriptografar senhas)
+REFRESH_SECRET_KEY = X (Chave secreta utilizada na revalidação de tokens)
+EXPIRES_IN = X (Tempo, em segundos, do tempo de expiração dos tokens de acesso)
 
 # Execute a aplicação em modo de desenvolvimento
 
