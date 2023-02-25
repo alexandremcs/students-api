@@ -27,7 +27,7 @@ Aplicação back-end com os métodos HTTP *get, post, put e delete* e integraç�
 - Variáveis de ambiente com Dotenv;
 - Paginação do lado do servidor
 
-## Aplicação rodando no Postman
+## ⚡ Aplicação rodando no Postman
 - Cadastro de usuários (Método POST)
 
 ![Print1](https://raw.githubusercontent.com/alexandremcs/students-api/main/assets/images/print1.png)
